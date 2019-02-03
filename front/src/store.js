@@ -59,7 +59,7 @@ export default new Vuex.Store({
     async initialiseListAction({ commit }) {
       try {
         commit('startLoading');
-        await delay(1000);
+        await delay(500);
 
         const contacts = await api.getContactList();
         console.log('get contact list', contacts);
@@ -76,7 +76,7 @@ export default new Vuex.Store({
       try {
         commit('startLoading');
 
-        await delay(1000);
+        await delay(500);
         const returnValue = await api.updateContact(payload);
         console.log('updatingContact', returnValue);
 
@@ -86,14 +86,32 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
+
     async deleteContact({ commit }, payload) {
       try {
         commit('startLoading');
-        await delay(1000);
+        await delay(500);
         const returnValue = await api.deleteContact(payload._id);
         console.log('deletingContact', returnValue);
         if (returnValue.status === 200) {
           commit('deleteContact', payload);
+        }
+
+        commit('stopLoading');
+      } catch (e) {
+        commit('stopLoading');
+        console.log(e);
+      }
+    },
+
+    async createContact({ dispatch, commit }, payload) {
+      try {
+        commit('startLoading');
+        await delay(500);
+        const returnValue = await api.createContact(payload.firstName, payload.lastName, payload.phoneNumber, payload.emailAddress);
+        console.log('creating new contact', returnValue);
+        if (returnValue.status === 200) {
+          await dispatch('initialiseListAction');
         }
 
         commit('stopLoading');

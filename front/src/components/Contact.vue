@@ -6,16 +6,16 @@
         <div class="contact__information">
             <div class="contact__information__number">
                 <span> Phone number : </span>
-                <input type="number" v-model="phoneNumber"/>
+                <input type="number" v-model="phoneNumber" :disabled="fieldsDisabled"/>
             </div>
             <div class="contact__information__email">
                 <span> Email address : </span>
-                <input v-model="emailAddress"/>
+                <input v-model="emailAddress" :disabled="fieldsDisabled"/>
             </div>
 
         </div>
         <div class="contact__actions">
-            <button type="button" class="button__save" v-on:click="updateContact(details)">Update Database</button>
+            <button type="button" class="button__save" v-on:click="update(details)">{{ updateText }}</button>
             <button type="button" class="button__delete" v-on:click="deleteContact(details)">Delete</button>
         </div>
     </div>
@@ -28,12 +28,29 @@ export default {
   props: {
     details: Object,
   },
+  data: () => ({
+    fieldsDisabled: true,
+  }),
   methods: {
     ...mapActions(['updateContact', 'deleteContact']),
+    update() {
+      if (this.fieldsDisabled) {
+        this.fieldsDisabled = false;
+      } else {
+        this.fieldsDisabled = true;
+        this.updateContact(this.details);
+      }
+    },
   },
   computed: {
     fullName() {
       return `${this.details.firstName} ${this.details.lastName}`;
+    },
+    updateText() {
+      if (this.fieldsDisabled) {
+        return 'Modify contact';
+      }
+      return 'Update Database';
     },
     phoneNumber: {
       get() {
@@ -72,6 +89,7 @@ export default {
 }
 
 .contact__title {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 

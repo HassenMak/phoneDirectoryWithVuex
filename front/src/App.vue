@@ -2,9 +2,9 @@
   <div id="app">
     <h1> Phone Directory </h1>
     <ContactList />
-    <button type="button" class="button__add-contact">
-      +
-    </button>
+    <CreateContact />
+
+
     <loading
       :active.sync="isLoading"
       :is-full-page="true">
@@ -18,7 +18,7 @@ import { mapState } from 'vuex';
 // Import component
 import Loading from 'vue-loading-overlay';
 import ContactList from './components/ContactList.vue';
-
+import CreateContact from './components/CreateContact.vue';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
 
@@ -28,7 +28,9 @@ export default {
   components: {
     ContactList,
     Loading,
+    CreateContact,
   },
+
 
   computed: {
     ...mapState([
@@ -50,6 +52,10 @@ export default {
 body {
   margin:0;
 
+  h1 {
+    margin-bottom: 20px;
+  }
+
   button {
     border-style: none;
     outline-style: none;
@@ -59,25 +65,5 @@ body {
     outline-style: none;
     font-size: 14px;
   }
-}
-
-.button__add-contact {
-  position: fixed;
-  bottom: 60px;
-  right: 60px;
-  width: 56px;
-  height: 56px;
-  padding: 0px;
-  cursor: pointer;
-  display: inline-block;
-  overflow: hidden;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  vertical-align: middle;
-  transition: .3s ease-out;
-  font-size: 28px;
-  color: #fff;
-  background-color: #F44336;
-  border-radius: 50%
 }
 </style>
