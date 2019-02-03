@@ -7,7 +7,7 @@ exports.test = function (req, res) {
 
 exports.createContact = function (req, res) {
 	// Create a new instance of our model
-	console.log(req.body)
+	console.log('\n', 'create contact', req.body)
 	let contact = new Contact(
 		{
 			firstName: req.body.firstName,
@@ -26,6 +26,7 @@ exports.createContact = function (req, res) {
 }
 
 exports.getContact = function (req, res) {
+	console.log('\n', 'get Contact with id:', req.params.id)
 	Contact.findById(req.params.id, function (err, contact) {
 		if (err) throw err
 		res.send(contact)
@@ -33,7 +34,7 @@ exports.getContact = function (req, res) {
 }
 
 exports.updateContact = function (req, res) {
-	console.log('paramas', req.params)
+	console.log('\n', 'update contact with id:', req.params.id, 'with this changes', req.body)
 	Contact.findOneAndUpdate(
 		{ '_id': req.params.id },
 		{ $set: req.body },
@@ -44,6 +45,7 @@ exports.updateContact = function (req, res) {
 }
 
 exports.deleteContact = function (req, res) {
+	console.log('\n', 'delete contact with id:', req.params.id)
 	Contact.findOneAndDelete({ '_id': req.params.id }, function (err) {
 		if (err) throw (err)
 		res.send('Deleted successfully')
@@ -51,6 +53,7 @@ exports.deleteContact = function (req, res) {
 }
 
 exports.getList = function (req, res) {
+	console.log('\n', 'get all the contacts')
 	Contact.find(function (err, result) {
 		if (err) throw err
 		res.send(result)
