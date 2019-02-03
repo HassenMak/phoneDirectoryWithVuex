@@ -2,10 +2,7 @@ import axios from 'axios';
 
 export default {
   getContactList() {
-    setTimeout(
-      () => axios.get('http://localhost:8081/contacts/list'),
-      3000,
-    );
+    return axios.get('http://localhost:8081/contacts/list');
   },
 
   getContact(id) {
@@ -22,7 +19,7 @@ export default {
   },
 
   updateContact(contact) {
-    return axios.put(`http://localhost:8081/contacts/${id}/update`, {
+    return axios.put(`http://localhost:8081/contacts/${contact._id}/update`, {
       firstName: contact.firstName,
       lastName: contact.lastName,
       phoneNumber: contact.phoneNumber,
