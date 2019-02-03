@@ -33,8 +33,9 @@ exports.getContact = function (req, res) {
 }
 
 exports.updateContact = function (req, res) {
+	console.log('paramas', req.params)
 	Contact.findOneAndUpdate(
-		req.params.id,
+		{ '_id': req.params.id },
 		{ $set: req.body },
 		function (err, contact) {
 			if (err) throw err
@@ -43,7 +44,7 @@ exports.updateContact = function (req, res) {
 }
 
 exports.deleteContact = function (req, res) {
-	Contact.findOneAndDelete(req.params.id, function (err) {
+	Contact.findOneAndDelete({ '_id': req.params.id }, function (err) {
 		if (err) throw (err)
 		res.send('Deleted successfully')
 	})
