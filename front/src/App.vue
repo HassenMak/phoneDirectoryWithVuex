@@ -14,10 +14,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
-import ContactList from './components/ContactList.vue';
 // Import component
+import Loading from 'vue-loading-overlay';
+import ContactList from './components/ContactList.vue';
+
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
 
