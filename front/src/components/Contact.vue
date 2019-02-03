@@ -6,29 +6,52 @@
         <div class="contact__information">
             <div class="contact__information__number">
                 <span> Phone number : </span>
-                <input v-model="details.phoneNumber"/>
+                <input type="number" v-model="phoneNumber"/>
             </div>
             <div class="contact__information__email">
                 <span> Email address : </span>
-                <input v-model="details.emailAddress"/>
+                <input v-model="emailAddress"/>
             </div>
 
         </div>
         <div class="contact__actions">
-            <button type="button" class="button__save">Save</button>
-            <button type="button" class="button__delete">Delete</button>
+            <button type="button" class="button__save" v-on:click="updateContact(details)">Update Database</button>
+            <button type="button" class="button__delete" v-on:click="deleteContact(details)">Delete</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   props: {
     details: Object,
   },
+  methods: {
+    ...mapActions(['updateContact', 'deleteContact']),
+  },
   computed: {
     fullName() {
       return `${this.details.firstName} ${this.details.lastName}`;
+    },
+    phoneNumber: {
+      get() {
+        return this.$store.state.contacts.find(item => item._id === this.details._id).phoneNumber;
+      },
+      set(value) {
+        const newDetails = { ...this.details, phoneNumber: value };
+        this.$store.commit('updateContact', newDetails);
+      },
+    },
+    emailAddress: {
+      get() {
+        return this.$store.state.contacts.find(item => item._id === this.details._id).emailAddress;
+      },
+      set(value) {
+        const newDetails = { ...this.details, emailAddress: value };
+        this.$store.commit('updateContact', newDetails);
+      },
     },
   },
 };

@@ -8,7 +8,7 @@
 
     <Contact
     v-for="contact in contacts"
-    :key="contact.id"
+    :key="contact._id"
     :details="contact"
     />
   </div>
@@ -18,16 +18,13 @@
 import {
   mapState, mapGetters, mapMutations, mapActions,
 } from 'vuex';
-import axios from 'axios';
+
 import Contact from './Contact.vue';
 
 export default {
   name: 'ContactList',
   components: {
     Contact,
-  },
-  data() {
-    return { };
   },
   computed: {
   // Retrieve STATE - method 1

@@ -4,42 +4,48 @@ import api from '../services/api.service';
 
 Vue.use(Vuex);
 
-const delay = () => {
-  new Promise(((resolve, reject) => {
+const delay = time => new Promise(
+  (resolve) => {
     setTimeout(() => resolve('foo'),
-      3000);
-  }));
-};
+      time);
+  },
+);
 
 export default new Vuex.Store({
   state: {
-    contacts: [
-    ],
+    contacts: [],
     count: 1,
     isLoading: false,
   },
   getters: {
-    getContact: (state, getters) => contactId => state.contacts.filter(contact => contact.id === contactId),
+    /* eslint-disable max-len */
+    // In argument we can also add getters if we need to use another getter
+    getContact: state => contactId => state.contacts.filter(contact => contact._id === contactId),
   },
   mutations: {
     increment(state, payload = {}) {
       // mutate state
-      state.count += payload.amount;
-      // Vue.set(state, 'count', payload.amount);
+      // state.count += payload.amount;
+      Vue.set(state, 'count', payload.amount);
     },
 
+    updateContact(state, payload = {}) {
+      const indexContactToChange = state.contacts.findIndex(element => element._id === payload._id);
+      Vue.set(state.contacts, indexContactToChange, payload);
+    },
+    deleteContact(state, payload = {}) {
+      Vue.set(state, 'contacts', [...state.contacts.filter(element => element._id !== payload._id)]);
+    },
     initialiseListMutation(state, payload = {}) {
-      console.log('initialiseMutation', payload);
-      state.contacts = payload.contacts.data;
-      // Vue.set(state, 'contacts', payload.contacts.data);
+      Vue.set(state, 'contacts', payload.contacts.data);
     },
 
     startLoading(state) {
-      Vue.set(state, 'loading', true);
+      Vue.set(state, 'isLoading', true);
     },
 
     stopLoading(state) {
-      Vue.set(state, 'loading', false);
+      Vue.set(state, 'isLoading', false);
     },
   },
   actions: {
@@ -53,28 +59,46 @@ export default new Vuex.Store({
     async initialiseListAction({ commit }) {
       try {
         commit('startLoading');
-        const value = await delay();
-        console.log(value);
+        await delay(1000);
+
         const contacts = await api.getContactList();
-        console.log('youhou', api.getContactList());
+        console.log('get contact list', contacts);
         commit('initialiseListMutation', { contacts });
         commit('stopLoading');
       } catch (e) {
         commit('stopLoading');
-        // action todo
-        // commit ('REQUEST_FAILURE')
+        // Handle the case when error with the database
         console.log(e);
       }
     },
 
-    async updateContact({ commit }, { id }) {
+    async updateContact({ commit }, payload) {
       try {
-        // commit('Request')
-        const contacts = await api.getContactList();
-        commit('initialiseListMutation', { contacts });
-        // commit ('Request_SUCCESS')
+        commit('startLoading');
+
+        await delay(1000);
+        const returnValue = await api.updateContact(payload);
+        console.log('updatingContact', returnValue);
+
+        commit('stopLoading');
       } catch (e) {
-        // commit ('REQUEST_FAILURE')
+        commit('stopLoading');
+        console.log(e);
+      }
+    },
+    async deleteContact({ commit }, payload) {
+      try {
+        commit('startLoading');
+        await delay(1000);
+        const returnValue = await api.deleteContact(payload._id);
+        console.log('deletingContact', returnValue);
+        if (returnValue.status === 200) {
+          commit('deleteContact', payload);
+        }
+
+        commit('stopLoading');
+      } catch (e) {
+        commit('stopLoading');
         console.log(e);
       }
     },
