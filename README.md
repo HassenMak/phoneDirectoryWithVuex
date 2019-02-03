@@ -36,4 +36,9 @@ The application needs the following to work:
 npm
 node
 mongoDB
+Postman
 ```
+
+### Postman 
+
+There is a postman collection called `phoneDirectoryTest.postman_collection` to help working with the back-end and the database.

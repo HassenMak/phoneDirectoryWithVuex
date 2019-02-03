@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "caabeb3b-2d1e-4fc3-8f0a-e44e726799cd",
+		"name": "phoneDirectoryTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/contacts/5c30d9c1142de2562dee2387",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"contacts",
+						"5c30d9c1142de2562dee2387"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Robert",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Ju",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "emailAddress",
+							"value": "uhbub",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8081/contacts/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"contacts",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Catherine",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8081/contacts/5c30d9c1142de2562dee2387/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"contacts",
+						"5c30d9c1142de2562dee2387",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Catherine",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8081/contacts/5c30d9c1142de2562dee2387/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"contacts",
+						"5c30d9c1142de2562dee2387",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all (list)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/contacts/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"contacts",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

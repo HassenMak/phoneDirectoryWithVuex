@@ -12,7 +12,7 @@ $ mongod --dbpath ./database
 $ mongo 
 
 ## Run the server
-$ node server.js
+$ npm run start
 
 (Don't forget to install the depencies first: 
 $ npm install)
